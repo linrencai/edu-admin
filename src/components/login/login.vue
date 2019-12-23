@@ -2,14 +2,14 @@
   <div class="login-wrap">
     <el-form class="login-form" label-position="top" label-width="80px" :model="formdata">
       <h2>管理员登录</h2>
-      <el-form-item>
-        <el-input placeholder="请输入账号" v-model="formdata.admAccount"></el-input>
+      <el-form-item prop="admAccount">
+        <el-input placeholder="请输入账号" ref="admAccount" autocomplete="on" v-model="formdata.admAccount"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-input placeholder="请输入密码" v-model="formdata.admPassword"></el-input>
+      <el-form-item prop="admPassword">
+        <el-input placeholder="请输入密码" ref="admPassword" autocomplete="on" v-model="formdata.admPassword"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-input placeholder="请输入验证码" v-model="formdata.verificationCode">
+      <el-form-item prop="verificationCode">
+        <el-input placeholder="请输入验证码" ref="verificationCode" autocomplete="on" v-model="formdata.verificationCode" @keyup.enter.native="handleLogin">
           <template slot="append">
             <img :src="url" alt="点击刷新验证码" @click="getCode()"/>
           </template>
@@ -28,8 +28,8 @@ export default {
   data() {
     return {
       formdata: {
-        admAccount: "",
-        admPassword: "",
+        admAccount: "admin",
+        admPassword: "123456",
         verificationCode: ""
       },
       url: ""
@@ -40,25 +40,23 @@ export default {
   },
   methods: {
     async handleLogin() {
+      console.log(this.formdata)
       const res = await this.$http.post("admin/adminLogin", this.formdata);
       console.log(res);
-      const {
-        data,
-        meta: { retCode, retMsg }
-      } = res.data;
+      const data = res.data
       // 登陆成功
       // 1.跳转home
-      if (retCode == "ADMIN0000") {
+      if (data.retCode == "ADMIN0000") {
         // 保存token值
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token", data.retCode);
         // 2.提示成功
-        this.$message.success(retMsg);
+        this.$message.success(data.retMsg);
         // 跳转页面
         this.$router.push({ name: "home" });
       } else {
         // 登陆不成功
         // 1.提示消息
-        this.$message.warning(retMsg);
+        this.$message.warning(data.retMsg);
       }
     },
     async getCode() {
