@@ -6,7 +6,7 @@
                 
             </el-col>
             <el-col :span="18" class="middle">
-                <h2>电商后台管理系统</h2>
+                <h2>师生在线教育系统</h2>
             </el-col>
             <el-col :span="2">
                 <div class="grid-content bg-purple">

@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <el-form class="login-form" label-position="top" label-width="80px" :model="formdata">
-      <h2 style="text-align:center;">管理员登录</h2>
+      <h2 style="text-align:center;">学生登录</h2>
       <el-form-item prop="admAccount">
         <el-input
           placeholder="请输入账号"
@@ -34,10 +34,7 @@
       <el-button @click.prevent="handleLogin()" class="login-btn" type="primary">登录</el-button>
       <el-row style="margin-top:10px;">
         <el-col :span="8">
-          <div class="grid-content bg-purple-dark" ><el-button type="info" plain @click=" $router.push({name:'studentlogin'})">学生登录</el-button></div>
-        </el-col>
-        <el-col :span="8" :offset="8">
-          <div class="grid-content bg-purple-dark" style="text-align:right;"><el-button type="info" plain @click=" $router.push({name:'teacherlogin'})">老师登录</el-button></div>
+         <div class="grid-content bg-purple-dark" ><el-button type="info" plain @click=" $router.push({name:'studentsignup'})">学生注册</el-button></div>
         </el-col>
       </el-row>
     </el-form>

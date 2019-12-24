@@ -11,6 +11,10 @@ import Cateparams from '@/components/goods/cateparams.vue'
 import Goodscate from '@/components/goods/goodscate.vue'
 import Orders from '@/components/order/order.vue'
 import Reports from '@/components/echarts/echarts.vue'
+import Studentlogin from '@/components/login/studentlogin.vue'
+import Teacherlogin from '@/components/login/teacherlogin.vue'
+import Studentsignup from '@/components/login/studentsignup.vue'
+import Teachersignup from '@/components/login/teachersignup.vue'
 
 import {
   Message
@@ -22,6 +26,22 @@ const router = new Router({
     name: 'login',
     path: '/login',
     component: Login
+  },{
+    name: 'studentlogin',
+    path: '/studentlogin',
+    component: Studentlogin
+  },{
+    name: 'teacherlogin',
+    path: '/teacherlogin',
+    component: Teacherlogin
+  },{
+    name: 'teachersignup',
+    path: '/teachersignup',
+    component: Teachersignup
+  },{
+    name: 'studentsignup',
+    path: '/studentsignup',
+    component: Studentsignup
   },
   {
     name: 'home',
@@ -81,7 +101,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // 排除登录页
-  if (to.path === '/login') {
+  if (to.path === '/login' || to.path === '/studentlogin' || to.path === '/teacherlogin' || to.path === '/teachersignup' || to.path === '/studentsignup') {
     next() // 执行渲染页面
   } else {
     // 如果要去的不是登录页面
