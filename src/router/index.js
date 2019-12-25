@@ -15,6 +15,7 @@ import Studentlogin from '@/components/login/studentlogin.vue'
 import Teacherlogin from '@/components/login/teacherlogin.vue'
 import Studentsignup from '@/components/login/studentsignup.vue'
 import Teachersignup from '@/components/login/teachersignup.vue'
+import Studentresetpsd from '@/components/login/studentresetpsd.vue'
 
 import {
   Message
@@ -42,6 +43,10 @@ const router = new Router({
     name: 'studentsignup',
     path: '/studentsignup',
     component: Studentsignup
+  },{
+    name: 'studentresetpsd',
+    path: '/studentresetpsd',
+    component: Studentresetpsd
   },
   {
     name: 'home',
@@ -101,7 +106,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // 排除登录页
-  if (to.path === '/login' || to.path === '/studentlogin' || to.path === '/teacherlogin' || to.path === '/teachersignup' || to.path === '/studentsignup') {
+  if (to.path === '/login' || to.path === '/studentlogin' || to.path === '/teacherlogin' || to.path === '/teachersignup' || to.path === '/studentsignup' || to.path === '/studentresetpsd') {
     next() // 执行渲染页面
   } else {
     // 如果要去的不是登录页面

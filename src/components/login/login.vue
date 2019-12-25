@@ -37,7 +37,7 @@
           <div class="grid-content bg-purple-dark" ><el-button type="info" plain @click=" $router.push({name:'studentlogin'})">学生登录</el-button></div>
         </el-col>
         <el-col :span="8" :offset="8">
-          <div class="grid-content bg-purple-dark" style="text-align:right;"><el-button type="info" plain @click=" $router.push({name:'teacherlogin'})">老师登录</el-button></div>
+          <div class="grid-content bg-purple-dark" style="text-align:right;"><el-button type="info" plain @click=" $router.push({name:'teacherlogin'})">教师登录</el-button></div>
         </el-col>
       </el-row>
     </el-form>

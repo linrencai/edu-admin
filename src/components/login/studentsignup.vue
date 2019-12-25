@@ -2,20 +2,36 @@
   <div class="login-wrap">
     <el-form class="login-form" label-position="top" label-width="80px" :model="formdata">
       <h2 style="text-align:center;">学生注册</h2>
-      <el-form-item prop="admAccount">
+      <el-form-item prop="stuPhone">
         <el-input
-          placeholder="请输入账号"
-          ref="admAccount"
+          placeholder="请输入手机号码"
+          ref="stuPhone"
           autocomplete="on"
-          v-model="formdata.admAccount"
+          v-model="formdata.stuPhone"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="admPassword">
+      <el-form-item prop="stuEmail">
         <el-input
-          placeholder="请输入密码"
-          ref="admPassword"
+          placeholder="请输入邮箱"
+          ref="stuEmail"
           autocomplete="on"
-          v-model="formdata.admPassword"
+          v-model="formdata.stuEmail"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="stuPassword">
+        <el-input
+          placeholder="请输入登陆密码"
+          ref="stuPassword"
+          autocomplete="on"
+          v-model="formdata.stuPassword"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="stuStudyNumber">
+        <el-input
+          placeholder="请输入学号，登陆账号"
+          ref="stuStudyNumber"
+          autocomplete="on"
+          v-model="formdata.stuStudyNumber"
         ></el-input>
       </el-form-item>
       <el-form-item prop="verificationCode">
@@ -27,7 +43,7 @@
           @keyup.enter.native="handleLogin"
         >
           <template slot="append">
-            <img :src="url" alt="点击刷新验证码" @click="getCode()" />
+            <img :src="url" alt="验证码" title="点击刷新验证码" @click="getCode()" />
           </template>
         </el-input>
 
@@ -49,9 +65,11 @@ export default {
   data() {
     return {
       formdata: {
-        admAccount: "admin",
-        admPassword: "123456",
-        verificationCode: ""
+        stuPhone: "",
+        stuEmail: "",
+        stuPassword: "",
+        stuStudyNumber:"",
+        verificationCode:""
       },
       url: ""
     };
@@ -62,12 +80,12 @@ export default {
   methods: {
     async handleLogin() {
       console.log(this.formdata);
-      const res = await this.$http.post("admin/adminLogin", this.formdata);
+      const res = await this.$http.post("studentReg/registerStu", this.formdata);
       const data = res.data;
       // console.log(data);
       // 登陆成功
       // 1.跳转home
-      if (data.retCode == "ADMIN0000") {
+      if (data.retCode == "REGSTU0000") {
         // 保存token值
         localStorage.setItem("token", data.retCode);
         // 2.提示成功

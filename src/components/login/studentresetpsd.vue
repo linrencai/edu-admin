@@ -1,21 +1,29 @@
 <template>
   <div class="login-wrap">
     <el-form class="login-form" label-position="top" label-width="80px" :model="formdata">
-      <h2 style="text-align:center;">学生登录</h2>
+      <h2 style="text-align:center;">学生找回密码</h2>
       <el-form-item prop="stuStudyNumber">
         <el-input
-          placeholder="请输入账号"
+          placeholder="请输入学号"
           ref="stuStudyNumber"
           autocomplete="on"
           v-model="formdata.stuStudyNumber"
         ></el-input>
       </el-form-item>
-      <el-form-item prop="stuPassword">
+      <el-form-item prop="stuPhone">
         <el-input
-          placeholder="请输入密码"
-          ref="stuPassword"
+          placeholder="请输入手机号码"
+          ref="stuPhone"
           autocomplete="on"
-          v-model="formdata.stuPassword"
+          v-model="formdata.stuPhone"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="stuEmail">
+        <el-input
+          placeholder="请输入邮箱"
+          ref="stuEmail"
+          autocomplete="on"
+          v-model="formdata.stuEmail"
         ></el-input>
       </el-form-item>
       <el-form-item prop="verificationCode">
@@ -27,7 +35,7 @@
           @keyup.enter.native="handleLogin"
         >
           <template slot="append">
-            <img :src="url" alt="点击刷新验证码" @click="getCode()" />
+            <img :src="url" alt="验证码" title="点击刷新验证码" @click="getCode()" />
           </template>
         </el-input>
       </el-form-item>
@@ -35,9 +43,6 @@
       <el-row style="margin-top:10px;">
         <el-col :span="8">
          <div class="grid-content bg-purple-dark" ><el-button type="info" plain @click=" $router.push({name:'studentsignup'})">学生注册</el-button></div>
-        </el-col>
-        <el-col :span="8" :offset="8" >
-         <div class="grid-content bg-purple-dark" style="text-align:right;" ><el-button type="info" plain @click=" $router.push({name:'studentresetpsd'})">找回密码</el-button></div>
         </el-col>
       </el-row>
     </el-form>
@@ -49,9 +54,10 @@ export default {
   data() {
     return {
       formdata: {
-        stuStudyNumber: "123456",
-        stuPassword: "123456",
-        verificationCode: ""
+        stuStudyNumber: "",
+        stuPhone: "",
+        stuEmail: "",
+        verificationCode:""
       },
       url: ""
     };
@@ -62,12 +68,12 @@ export default {
   methods: {
     async handleLogin() {
       console.log(this.formdata);
-      const res = await this.$http.post("student/studentLogin", this.formdata);
+      const res = await this.$http.post("student/findStudent", this.formdata);
       const data = res.data;
       // console.log(data);
       // 登陆成功
       // 1.跳转home
-      if (data.retCode == "STU00000") {
+      if (data.retCode == "STU00004") {
         // 保存token值
         localStorage.setItem("token", data.retCode);
         // 2.提示成功
