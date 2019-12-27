@@ -46,54 +46,54 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       formdata: {
-        admAccount: "admin",
-        admPassword: "123456",
-        verificationCode: ""
+        admAccount: 'admin',
+        admPassword: '123456',
+        verificationCode: ''
       },
-      url: ""
-    };
+      url: ''
+    }
   },
-  created() {
-    this.getCode();
+  created () {
+    this.getCode()
   },
   methods: {
-    async handleLogin() {
-      console.log(this.formdata);
-      const res = await this.$http.post("admin/adminLogin", this.formdata);
-      const data = res.data;
+    async handleLogin () {
+      console.log(this.formdata)
+      const res = await this.$http.post('admin/adminLogin', this.formdata)
+      const data = res.data
       // console.log(data);
       // 登陆成功
       // 1.跳转home
-      if (data.retCode == "ADMIN0000") {
+      if (data.retCode == 'ADMIN0000') {
         // 保存token值
-        localStorage.setItem("token", data.retCode);
+        localStorage.setItem('token', data.retCode)
         // 2.提示成功
-        this.$message.success(data.retMsg);
+        this.$message.success(data.retMsg)
         // 跳转页面
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: 'home' })
       } else {
         // 登陆不成功
         // 1.提示消息
-        this.$message.warning(data.retMsg);
+        this.$message.warning(data.retMsg)
       }
     },
-    async getCode() {
-      const imageBuffer = await this.$http.get("verificationCode/getCode", {
-        responseType: "arraybuffer"
-      });
-      let bytes = new Uint8Array(imageBuffer.data);
-      let data = "";
-      let len = bytes.byteLength;
+    async getCode () {
+      const imageBuffer = await this.$http.get('verificationCode/getCode', {
+        responseType: 'arraybuffer'
+      })
+      let bytes = new Uint8Array(imageBuffer.data)
+      let data = ''
+      let len = bytes.byteLength
       for (let i = 0; i < len; i++) {
-        data += String.fromCharCode(bytes[i]);
+        data += String.fromCharCode(bytes[i])
       }
-      this.url = "data:image/png;base64," + window.btoa(data);
+      this.url = 'data:image/png;base64,' + window.btoa(data)
     }
   }
-};
+}
 </script>
 
 <style>
