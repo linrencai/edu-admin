@@ -9,7 +9,8 @@ import Goodslist from '@/components/goods/goodslist.vue'
 import Goodsadd from '@/components/goods/goodsadd.vue'
 import Cateparams from '@/components/goods/cateparams.vue'
 import Goodscate from '@/components/goods/goodscate.vue'
-import Orders from '@/components/order/order.vue'
+import MessageManager from '@/components/admin/messageManager.vue'
+import RegisterStudent from '@/components/admin/registerStudent.vue'
 import Reports from '@/components/echarts/echarts.vue'
 import Studentlogin from '@/components/login/studentlogin.vue'
 import Teacherlogin from '@/components/login/teacherlogin.vue'
@@ -88,14 +89,19 @@ const router = new Router({
       component: Goodscate
     },
     {
-      name: 'orders',
-      path: '/orders',
-      component: Orders
+      name: 'messageManager',
+      path: '/messageManager',
+      component: MessageManager
     },
     {
       name: 'reports',
       path: '/reports',
       component: Reports
+    },
+    {
+      name: 'registerStudent',
+      path: '/registerStudent',
+      component: RegisterStudent
     }
     ]
   }

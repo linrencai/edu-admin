@@ -78,7 +78,7 @@ export default {
             children: [
               {
                 authName: '公告管理',
-                path: '/orders'
+                path: '/messageManager'
               }
             ]
           },
@@ -89,7 +89,7 @@ export default {
             children: [
               {
                 authName: '学生审核',
-                path: '/'
+                path: '/registerStudent'
               },
               {
                 authName: '教师审核',
