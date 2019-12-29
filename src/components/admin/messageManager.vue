@@ -8,15 +8,15 @@
       label-position="left"
       style="margin-top:30px;"
     >
-      <el-form-item label="系统消息标题">
+      <el-form-item label="系统消息标题" prop="title">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
-      <el-form-item label="系统消息内容">
+      <el-form-item label="系统消息内容" prop="content">
         <el-input type="textarea" v-model="form.content"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit()">立即发布</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
     </el-form>
     <h4>系统消息列表</h4>

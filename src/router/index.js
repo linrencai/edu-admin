@@ -17,6 +17,8 @@ import Teacherlogin from '@/components/login/teacherlogin.vue'
 import Studentsignup from '@/components/login/studentsignup.vue'
 import Teachersignup from '@/components/login/teachersignup.vue'
 import Studentresetpsd from '@/components/login/studentresetpsd.vue'
+import Studentquestion from '@/components/admin/studentquestion.vue'
+import Teacherquestion from '@/components/admin/teacherquestion.vue'
 
 import {
   Message
@@ -102,6 +104,16 @@ const router = new Router({
       name: 'registerStudent',
       path: '/registerStudent',
       component: RegisterStudent
+    },
+    {
+      name: 'studentquestion',
+      path: '/studentquestion',
+      component: Studentquestion
+    },
+    {
+      name: 'teacherquestion',
+      path: '/teacherquestion',
+      component: Teacherquestion
     }
     ]
   }

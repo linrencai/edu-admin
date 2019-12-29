@@ -104,11 +104,11 @@ export default {
             children: [
               {
                 authName: '学生提问',
-                path: '/'
+                path: '/studentquestion'
               },
               {
                 authName: '教师提问',
-                path: '/'
+                path: '/teacherquestion'
               }
             ]
           },
