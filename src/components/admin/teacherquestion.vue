@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <my-bread level1="系统提问" level2="老师提问"></my-bread>
+    <my-bread level1="系统提问" level2="学生提问"></my-bread>
     <el-form
       ref="form"
       :model="form"
@@ -57,6 +57,28 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog title="回复详情" :visible.sync="dialogVisible" width="40%">
+      <div v-if="dialogdata == ''">
+        <h4>暂无回复</h4>
+      </div>
+      <div v-else>
+        <!-- <h4>问题：{{dialogdata[0].contectAdmin.content}}</h4> -->
+        <div v-for="item in dialogdata" :key="item.id">
+          <div style="margin-top:16px;">
+            <span
+              style="display:inline-block;width:4em;text-align:right;padding-right:10px;font-weight:bold;"
+            >{{item.role.role == 'STU'?'学生：':'管理员：'}}</span>
+            <span>{{item.contectAdmin.content}}</span>
+          </div>
+        </div>
+        <h4>请在下面输入您想要回复的内容：</h4>
+        <el-input placeholder="请输入回复内容" v-model="input" clearable></el-input>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click.native.prevent="submitReply">提交回复</el-button>
+      </span>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -66,19 +88,23 @@ export default {
   data() {
     return {
       list: [],
+       input: '',
       form: {
         foreignType: "TEA",
         content: "",
         replyFlag: ""
-      }
+      },
+      dialogVisible: false,
+      dialogdata: "",
+      lastqusetionId:null
     };
   },
   methods: {
     // 获取列表数据
     async getMsgList() {
       const res = await this.$http.post("contectAdmin/qsqfa", this.form);
-      console.log(res);
       // if (res.status == 200) {
+        console.log(res.data)
       this.list = res.data.contectAdminList;
       // }
     },
@@ -121,10 +147,10 @@ export default {
         .catch(() => {});
     },
     async checkDetail(index, rows) {
+      this.dialogVisible = true;
       const status = rows[index].status;
       const replyFlag = rows[index].contectAdmin.replyFlag;
       const pid = rows[index].contectAdmin.id;
-      console.log(rows);
       if (replyFlag == "0") {
         this.$message.warning("暂无回复内容");
         return false;
@@ -133,30 +159,26 @@ export default {
         pid: pid
       };
       const res = await this.$http.post("contectAdmin/qsqr", formdata);
-      console.log(res);
-      const value = res.data.contectAdminList.map(item => {
-        return item;
-      });
-      console.log(value);
-      const questionname = res.data.contectAdminList[0].role.stuStudyNumber;
-      var html =
-        "<p>" +
-        questionname +
-        "(学号)提问：" +
-        value[0].contectAdmin.content +
-        "</p>";
-      for (let i = 1; i < value.length; i++) {
-        console.log(value[i]);
-        html +=
-          "<p><span>" +
-          value[i].role.role +
-          ":</span><span>" +
-          value[i].contectAdmin.content +
-          "</span><p>";
-      }
-      this.$alert(html, "回复列表", {
-        dangerouslyUseHTMLString: true
-      });
+      this.dialogdata = res.data.contectAdminList;
+      const lastqusetionId = res.data.contectAdminList[0].contectAdmin.id
+      this.lastqusetionId = lastqusetionId
+    },
+    async submitReply(){
+      const formdata = {
+        pid: this.lastqusetionId,
+        content:this.input
+      };
+      const res = await this.$http.post(
+            "contectAdmin/admReplySysMsg",
+            formdata
+          );
+       this.dialogVisible = false;
+       if(res.data.retCode == 'CONADM0000'){
+          this.$message.warning("消息发送成功");
+       }else {
+         this.$message.warning("回复失败");
+       }
+        
     }
   },
   created() {

@@ -93,7 +93,7 @@ export default {
               },
               {
                 authName: '教师审核',
-                path: '/'
+                path: '/registerteacher'
               }
             ]
           },
