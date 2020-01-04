@@ -20,6 +20,16 @@ import Studentresetpsd from '@/components/login/studentresetpsd.vue'
 import Studentquestion from '@/components/admin/studentquestion.vue'
 import Teacherquestion from '@/components/admin/teacherquestion.vue'
 import Registerteacher from '@/components/admin/registerteacher.vue'
+import Courselist from '@/components/student/courselist.vue'
+import Mycourse from '@/components/student/mycourse.vue'
+import Teachercourse from '@/components/teacher/teachercourse.vue'
+import Contactadmin from '@/components/student/contactadmin.vue'
+import Chartarea from '@/components/student/chartarea.vue'
+import Messagelist from '@/components/student/messagelist.vue'
+import Teacherresetpsd from '@/components/login/teacherresetpsd.vue'
+import Admincourselist from '@/components/admin/admincourselist.vue'
+import Adminchartarea from '@/components/admin/adminchartarea.vue'
+import Teacherchartarea from '@/components/teacher/teacherchartarea.vue'
 
 import {
   Message
@@ -28,101 +38,151 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [{
-    name: 'login',
-    path: '/login',
-    component: Login
-  },{
-    name: 'studentlogin',
-    path: '/studentlogin',
-    component: Studentlogin
-  },{
-    name: 'teacherlogin',
-    path: '/teacherlogin',
-    component: Teacherlogin
-  },{
-    name: 'teachersignup',
-    path: '/teachersignup',
-    component: Teachersignup
-  },{
-    name: 'studentsignup',
-    path: '/studentsignup',
-    component: Studentsignup
-  },{
-    name: 'studentresetpsd',
-    path: '/studentresetpsd',
-    component: Studentresetpsd
-  },
-  {
-    name: 'home',
-    path: '/',
-    component: Home,
-    children: [{
-      name: 'users',
-      path: '/users',
-      component: Users
+      name: 'login',
+      path: '/login',
+      component: Login
+    }, {
+      name: 'studentlogin',
+      path: '/studentlogin',
+      component: Studentlogin
+    }, {
+      name: 'teacherlogin',
+      path: '/teacherlogin',
+      component: Teacherlogin
+    }, {
+      name: 'teachersignup',
+      path: '/teachersignup',
+      component: Teachersignup
+    }, {
+      name: 'studentsignup',
+      path: '/studentsignup',
+      component: Studentsignup
+    }, {
+      name: 'studentresetpsd',
+      path: '/studentresetpsd',
+      component: Studentresetpsd
     },
     {
-      name: 'right',
-      path: '/rights',
-      component: Right
+      name: 'teacherresetpsd',
+      path: '/teacherresetpsd',
+      component: Teacherresetpsd
     },
     {
-      name: 'roles',
-      path: '/roles',
-      component: Roles
-    },
-    {
-      name: 'goods',
-      path: '/goods',
-      component: Goodslist
-    },
-    {
-      name: 'goodsadd',
-      path: '/goodsadd',
-      component: Goodsadd
-    },
-    {
-      name: 'params',
-      path: '/params',
-      component: Cateparams
-    },
-    {
-      name: 'categories',
-      path: '/categories',
-      component: Goodscate
-    },
-    {
-      name: 'messageManager',
-      path: '/messageManager',
-      component: MessageManager
-    },
-    {
-      name: 'reports',
-      path: '/reports',
-      component: Reports
-    },
-    {
-      name: 'registerStudent',
-      path: '/registerStudent',
-      component: RegisterStudent
-    },
-    {
-      name: 'studentquestion',
-      path: '/studentquestion',
-      component: Studentquestion
-    },
-    {
-      name: 'teacherquestion',
-      path: '/teacherquestion',
-      component: Teacherquestion
-    },
-    {
-      name: 'registerteacher',
-      path: '/registerteacher',
-      component: Registerteacher
+      name: 'home',
+      path: '/',
+      component: Home,
+      children: [{
+          name: 'users',
+          path: '/users',
+          component: Users
+        },
+        {
+          name: 'right',
+          path: '/rights',
+          component: Right
+        },
+        {
+          name: 'roles',
+          path: '/roles',
+          component: Roles
+        },
+        {
+          name: 'goods',
+          path: '/goods',
+          component: Goodslist
+        },
+        {
+          name: 'goodsadd',
+          path: '/goodsadd',
+          component: Goodsadd
+        },
+        {
+          name: 'params',
+          path: '/params',
+          component: Cateparams
+        },
+        {
+          name: 'categories',
+          path: '/categories',
+          component: Goodscate
+        },
+        {
+          name: 'messageManager',
+          path: '/messageManager',
+          component: MessageManager
+        },
+        {
+          name: 'reports',
+          path: '/reports',
+          component: Reports
+        },
+        {
+          name: 'registerStudent',
+          path: '/registerStudent',
+          component: RegisterStudent
+        },
+        {
+          name: 'studentquestion',
+          path: '/studentquestion',
+          component: Studentquestion
+        },
+        {
+          name: 'teacherquestion',
+          path: '/teacherquestion',
+          component: Teacherquestion
+        },
+        {
+          name: 'registerteacher',
+          path: '/registerteacher',
+          component: Registerteacher
+        },
+        {
+          name: 'courselist',
+          path: '/courselist',
+          component: Courselist
+        },
+        {
+          name: 'mycourse',
+          path: '/mycourse',
+          component: Mycourse
+        },
+        {
+          name: 'contactadmin',
+          path: '/contactadmin',
+          component: Contactadmin
+        },
+        {
+          name: 'chartarea',
+          path: '/chartarea',
+          component: Chartarea
+        },
+        {
+          name: 'messagelist',
+          path: '/messagelist',
+          component: Messagelist
+        },
+        {
+          name:'teachercourse',
+          path:'/teachercourse',
+          component:Teachercourse
+        },
+        {
+          name:'admincourselist',
+          path:'/admincourselist',
+          component:Admincourselist
+        },
+        {
+          name:'adminchartarea',
+          path:'/adminchartarea',
+          component:Adminchartarea
+        },
+        {
+          name:'teacherchartarea',
+          path:'/teacherchartarea',
+          component:Teacherchartarea
+        }
+      ]
     }
-    ]
-  }
   ]
 })
 
@@ -130,7 +190,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // 排除登录页
-  if (to.path === '/login' || to.path === '/studentlogin' || to.path === '/teacherlogin' || to.path === '/teachersignup' || to.path === '/studentsignup' || to.path === '/studentresetpsd') {
+  if (to.path === '/login' || to.path === '/studentlogin' || to.path === '/teacherlogin' || to.path === '/teachersignup' || to.path === '/studentsignup' || to.path === '/studentresetpsd' || to.path === '/teacherresetpsd') {
     next() // 执行渲染页面
   } else {
     // 如果要去的不是登录页面

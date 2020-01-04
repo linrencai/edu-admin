@@ -87,11 +87,11 @@ export default {
       // 1.跳转home
       if (data.retCode == "REGSTU0000") {
         // 保存token值
-        localStorage.setItem("token", data.retCode);
+        // localStorage.setItem("token", data.retCode);
         // 2.提示成功
         this.$message.success(data.retMsg);
         // 跳转页面
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "studentlogin" });
       } else {
         // 登陆不成功
         // 1.提示消息

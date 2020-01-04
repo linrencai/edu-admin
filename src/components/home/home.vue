@@ -119,7 +119,109 @@ export default {
             children: [
               {
                 authName: '信息评论管理',
-                path: '/'
+                path: '/admincourselist'
+              }
+            ]
+          }
+        ]
+      }
+       if (token === 'STU00000') {
+        this.role = '学生'
+        this.menuList = [
+          {
+            authName: '课程管理',
+            order: 1,
+            icon: 'el-icon-tickets',
+            children: [
+              {
+                authName: '选择课程',
+                path: '/courselist'
+              },
+              {
+                authName: '我的课程',
+                path: '/mycourse'
+              }
+            ]
+          },
+          {
+            authName: '课件文档下载',
+            order: 2,
+            icon: 'el-icon-download',
+            children: [
+              {
+                authName: '课件文档列表',
+                path: '/registerStudent'
+              }
+            ]
+          },
+          {
+            authName: '联系管理员',
+            order: 3,
+            icon: 'el-icon-message',
+            children: [
+              {
+                authName: '联系管理员',
+                path: '/contactadmin'
+              }
+            ]
+          },
+          {
+            authName: '公告查看',
+            order: 4,
+            icon: 'el-icon-bell',
+            children: [
+              {
+                authName: '公告列表',
+                path: '/messagelist'
+              }
+            ]
+          }
+        ]
+      }
+      if( token === 'TEA00000'){
+        this.role = '教师'
+        this.menuList = [
+          {
+            authName: '课程管理',
+            order: 1,
+            icon: 'el-icon-tickets',
+            children: [
+              {
+                authName: '我的课程',
+                path: '/teachercourse'
+              }
+            ]
+          },
+          {
+            authName: '课件文档下载',
+            order: 2,
+            icon: 'el-icon-download',
+            children: [
+              {
+                authName: '课件文档列表',
+                path: '/registerStudent'
+              }
+            ]
+          },
+          {
+            authName: '联系管理员',
+            order: 3,
+            icon: 'el-icon-message',
+            children: [
+              {
+                authName: '联系管理员',
+                path: '/contactadmin'
+              }
+            ]
+          },
+          {
+            authName: '公告查看',
+            order: 4,
+            icon: 'el-icon-bell',
+            children: [
+              {
+                authName: '公告列表',
+                path: '/messagelist'
               }
             ]
           }

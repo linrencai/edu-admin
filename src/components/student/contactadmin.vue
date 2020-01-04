@@ -1,12 +1,29 @@
 <template>
   <el-card>
     <my-bread level1="系统提问" level2="学生提问"></my-bread>
+    <h4>向管理员提问</h4>
     <el-form
+      ref="form2"
+      :model="form2"
+      label-width="8em"
+      label-position="right"
+      style="border-bottom:1px solid #ccc;"
+      :inline="false"
+    >
+      <el-form-item label="你要提的问题" prop="content">
+        <el-input type="textarea" v-model="form2.content" placeholder="请输入你向管理员提问的内容"></el-input>
+      </el-form-item>
+      <el-form-item style="width:100%;">
+        <el-button type="primary" @click="onSubmit2()">提交问题</el-button>
+      </el-form-item>
+    </el-form>
+    
+     <h4>系统消息列表</h4>
+    <!-- <el-form
       ref="form"
       :model="form"
       label-width="8em"
       label-position="right"
-      style="margin-top:30px;"
       :inline="true"
     >
       <el-form-item label="提问内容关键词" prop="content">
@@ -22,8 +39,8 @@
         <el-button type="primary" @click="onSubmit()">查询</el-button>
         <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
-    </el-form>
-    <h4>系统消息列表</h4>
+    </el-form> -->
+   
     <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
       <el-table-column prop="role.stuStudyNumber" label="学号" width="220" align="center"></el-table-column>
@@ -48,32 +65,33 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">
-          <!-- <el-button @click.native.prevent="editRow(scope.$index,list)" type="text" size="small">回复</el-button> -->
           <el-button
             @click.native.prevent="checkDetail(scope.$index,list)"
             type="text"
             size="small"
+            v-if="scope.row.contectAdmin.replyFlag == '1'"
           >查看回复</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog title="回复详情" :visible.sync="dialogVisible" width="40%">
-      <div v-if="dialogdata == ''">
+      <div v-if="dialogdata == ''" >
         <h4>暂无回复</h4>
       </div>
-      <div v-else>
+      <div v-else style="max-height:50vh;overflow-y:scroll;background-color:#ccc;padding:20px 10px;">
         <!-- <h4>问题：{{dialogdata[0].contectAdmin.content}}</h4> -->
-        <div v-for="item in dialogdata" :key="item.id">
-          <div style="margin-top:16px;">
+        <div v-for="item in dialogdata" :key="item.id" >
+          <div style="margin-bottom:16px;">
             <span
               style="display:inline-block;width:4em;text-align:right;padding-right:10px;font-weight:bold;"
             >{{item.role.role == 'STU'?'学生：':'管理员：'}}</span>
             <span>{{item.contectAdmin.content}}</span>
           </div>
         </div>
-        <h4>请在下面输入您想要回复的内容：</h4>
-        <el-input placeholder="请输入回复内容" v-model="input" clearable></el-input>
+        
       </div>
+      <h4>请在下面输入您想要回复的内容：</h4>
+        <el-input placeholder="请输入回复内容" v-model="input" clearable></el-input>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click.native.prevent="submitReply">提交回复</el-button>
@@ -89,8 +107,11 @@ export default {
     return {
       list: [],
        input: '',
+       form2:{
+           content:""
+       },
       form: {
-        foreignType: "TEA",
+        foreignType: "STU",
         content: "",
         replyFlag: ""
       },
@@ -102,9 +123,9 @@ export default {
   methods: {
     // 获取列表数据
     async getMsgList() {
-      const res = await this.$http.post("contectAdmin/qsqfa", this.form);
+      const res = await this.$http.post("contectAdmin/qsqfs");
+      console.log(res)
       // if (res.status == 200) {
-        console.log(res.data)
       this.list = res.data.contectAdminList;
       // }
     },
@@ -112,6 +133,18 @@ export default {
       console.log(this.form);
       const res = await this.$http.post("contectAdmin/qsqfa", this.form);
       this.list = res.data.contectAdminList;
+      console.log(res);
+    },
+    async onSubmit2() {
+      console.log(this.form2);
+      const res = await this.$http.post("contectAdmin/stuSysQuestion", this.form2);
+      if(res.data.retCode == 'CONADM0000'){
+          this.getMsgList()
+          this.$message.success(res.data.retMsg);
+      }else {
+          this.$message.warning(res.data.retMsg);
+      }
+      
       console.log(res);
     },
     filterTag(value, row) {
@@ -151,10 +184,10 @@ export default {
       const status = rows[index].status;
       const replyFlag = rows[index].contectAdmin.replyFlag;
       const pid = rows[index].contectAdmin.id;
-      // if (replyFlag == "0") {
-      //   this.$message.warning("暂无回复内容");
-      //   return false;
-      // }
+      if (replyFlag == "0") {
+        this.$message.warning("暂无回复内容");
+        return false;
+      }
       const formdata = {
         pid: pid
       };
@@ -169,7 +202,7 @@ export default {
         content:this.input
       };
       const res = await this.$http.post(
-            "contectAdmin/admReplySysMsg",
+            "contectAdmin/stuReplySysMsg",
             formdata
           );
        this.dialogVisible = false;

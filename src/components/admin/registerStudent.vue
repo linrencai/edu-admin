@@ -121,6 +121,8 @@ export default {
       this.$confirm("请选择修改该学生的审核状态", "操作", {
         confirmButtonText: "通过",
         cancelButtonText: "不通过",
+        closeOnClickModal:false,
+        showClose:false,
         type: "warning"
       })
         .then(async () => {

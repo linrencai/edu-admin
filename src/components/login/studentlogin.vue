@@ -64,12 +64,14 @@ export default {
       console.log(this.formdata);
       const res = await this.$http.post("student/studentLogin", this.formdata);
       const data = res.data;
-      // console.log(data);
+      // localStorage.setItem("token", 'STU00000');
+      // this.$router.push({ name: "home" });
+      console.log(data);
       // 登陆成功
       // 1.跳转home
       if (data.retCode == "STU00000") {
         // 保存token值
-        localStorage.setItem("token", data.retCode);
+        localStorage.setItem("token", 'STU00000');
         // 2.提示成功
         this.$message.success(data.retMsg);
         // 跳转页面

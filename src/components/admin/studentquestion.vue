@@ -62,7 +62,7 @@
         <h4>暂无回复</h4>
       </div>
       <div v-else style="max-height:50vh;overflow-y:scroll;background-color:#ccc;padding:20px 10px;">
-        <!-- <h4>问题：{{dialogdata[0].contectAdmin.content}}</h4> -->
+        
         <div v-for="item in dialogdata" :key="item.id" >
           <div style="margin-bottom:16px;">
             <span
@@ -151,10 +151,10 @@ export default {
       const status = rows[index].status;
       const replyFlag = rows[index].contectAdmin.replyFlag;
       const pid = rows[index].contectAdmin.id;
-      if (replyFlag == "0") {
-        this.$message.warning("暂无回复内容");
-        return false;
-      }
+      // if (replyFlag == "0") {
+      //   this.$message.warning("暂无回复内容");
+      //   return false;
+      // }
       const formdata = {
         pid: pid
       };

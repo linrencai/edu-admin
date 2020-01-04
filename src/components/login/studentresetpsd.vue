@@ -39,7 +39,7 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-button @click.prevent="handleLogin()" class="login-btn" type="primary">登录</el-button>
+      <el-button @click.prevent="handleLogin()" class="login-btn" type="primary">确定</el-button>
       <el-row style="margin-top:10px;">
         <el-col :span="8">
          <div class="grid-content bg-purple-dark" ><el-button type="info" plain @click=" $router.push({name:'studentsignup'})">学生注册</el-button></div>
@@ -70,16 +70,22 @@ export default {
       console.log(this.formdata);
       const res = await this.$http.post("student/findStudent", this.formdata);
       const data = res.data;
-      // console.log(data);
+      console.log(data);
       // 登陆成功
       // 1.跳转home
       if (data.retCode == "STU00004") {
         // 保存token值
-        localStorage.setItem("token", data.retCode);
+        // localStorage.setItem("token", data.retCode);
         // 2.提示成功
-        this.$message.success(data.retMsg);
+        // this.$message.success(data.retMsg);
+        this.$message({
+          showClose: true,
+          duration:0,
+          message: '密码是：'+data.student.stuPassword,
+          type: 'success'
+        });
         // 跳转页面
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "studentlogin" });
       } else {
         // 登陆不成功
         // 1.提示消息

@@ -1,22 +1,22 @@
 <template>
   <el-card>
-    <my-bread level1="注册审核" level2="学生审核"></my-bread>
+    <my-bread level1="注册审核" level2="教师审核"></my-bread>
     <el-form
       ref="form"
       :model="form"
-      label-width="4em"
+      label-width="6em"
       label-position="left"
       style="margin-top:30px;"
       :inline="true"
     >
-      <el-form-item label="学号" prop="stuStudyNumber">
-        <el-input v-model="form.stuStudyNumber"></el-input>
+      <el-form-item label="教师编号" prop="teaNumber">
+        <el-input v-model="form.teaNumber"></el-input>
       </el-form-item>
-      <el-form-item label="手机号" prop="stuPhone">
-        <el-input v-model="form.stuPhone"></el-input>
+      <el-form-item label="手机号" prop="teaPhone">
+        <el-input v-model="form.teaPhone"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱" prop="stuEmail">
-        <el-input v-model="form.stuEmail"></el-input>
+      <el-form-item label="邮箱" prop="teaEmail">
+        <el-input v-model="form.teaEmail"></el-input>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="form.status" placeholder="选择注册状态">
@@ -33,9 +33,9 @@
     <h4>系统消息列表</h4>
     <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
-      <el-table-column prop="stuStudyNumber" label="学号" width="220" align="center"></el-table-column>
-      <el-table-column prop="stuPhone" label="手机号" width="220" align="center"></el-table-column>
-      <el-table-column prop="stuEmail" label="邮箱" width="220" align="center"></el-table-column>
+      <el-table-column prop="teaNumber" label="教师编号" width="220" align="center"></el-table-column>
+      <el-table-column prop="teaPhone" label="手机号" width="220" align="center"></el-table-column>
+      <el-table-column prop="teaEmail" label="邮箱" width="220" align="center"></el-table-column>
       <el-table-column prop="regTime" label="注册时间" width="240" align="center"></el-table-column>
       <el-table-column
         prop="status"
@@ -69,9 +69,9 @@ export default {
     return {
       list: [],
       form: {
-        stuPhone: "",
-        stuEmail: "",
-        stuStudyNumber: "",
+        teaNumber: "",
+        teaPhone: "",
+        teaEmail: "",
         status: ""
       }
     };
@@ -79,10 +79,10 @@ export default {
   methods: {
     // 获取列表数据
     async getMsgList() {
-      const res = await this.$http.post("studentReg/queryStuReg", this.form);
+      const res = await this.$http.post("teacherReg/queryTeaReg", this.form);
       console.log(res);
       if (res.status == 200) {
-        this.list = res.data.stuRegList;
+        this.list = res.data.teaRegList;
       }
     },
     async onSubmit() {
@@ -115,25 +115,29 @@ export default {
       const status = rows[index].status;
       const stuRegId = rows[index].id;
       if (status != "PENDING") {
-        this.$message.warning("只能操作未审核状态的学生！");
+        this.$message.warning("只能操作未审核状态的教师！");
         return false;
       }
-      this.$confirm("请选择修改该学生的审核状态", "操作", {
+      this.$confirm("请选择修改该教师的审核状态", "操作", {
         confirmButtonText: "通过",
         cancelButtonText: "不通过",
+        closeOnClickModal:false,
+        showClose:false,
         type: "warning"
       })
         .then(async () => {
           const formdata = {
-            stuRegId: stuRegId,
+            tRegId: stuRegId,
+            auditResult:'通过',
+            dealExplain:'通过',
             status: "PASS"
           };
           console.log(formdata);
           const res = await this.$http.post(
-            "studentReg/auditStudentReg",
+            "teacherReg/auditTeacherReg",
             formdata
           );
-          if (res.data.retCode == "AUDIT0010") {
+          if (res.data.retCode == "AUDIT0010T") {
             this.$message.success(res.data.retMsg);
             this.getMsgList();
           }
@@ -142,14 +146,16 @@ export default {
         .catch(async () => {
           const formdata = {
             stuRegId: stuRegId,
+            auditResult:'不通过',
+            dealExplain:'不通过',
             status: "NOPASS"
           };
           console.log(formdata);
           const res = await this.$http.post(
-            "studentReg/auditStudentReg",
+            "teacherReg/auditTeacherReg",
             formdata
           );
-          if (res.data.retCode == "AUDIT0010") {
+          if (res.data.retCode == "AUDIT0010T") {
             this.$message.success(res.data.retMsg);
             this.getMsgList();
           }
