@@ -30,6 +30,8 @@ import Teacherresetpsd from '@/components/login/teacherresetpsd.vue'
 import Admincourselist from '@/components/admin/admincourselist.vue'
 import Adminchartarea from '@/components/admin/adminchartarea.vue'
 import Teacherchartarea from '@/components/teacher/teacherchartarea.vue'
+import Studentlist from '@/components/teacher/studentlist.vue'
+import Teacourselist from '@/components/teacher/teacourselist.vue'
 
 import {
   Message
@@ -180,6 +182,16 @@ const router = new Router({
           name:'teacherchartarea',
           path:'/teacherchartarea',
           component:Teacherchartarea
+        },
+        {
+          name:'studentlist',
+          path:'/studentlist',
+          component:Studentlist
+        },
+        {
+          name:'teacourselist',
+          path:'/teacourselist',
+          component:Teacourselist
         }
       ]
     }

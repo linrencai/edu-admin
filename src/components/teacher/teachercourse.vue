@@ -21,19 +21,29 @@
       </el-form-item>
     </el-form>
     <h4>系统消息列表</h4>
-   <el-table :data="list" style="width: 100%;" max-height="500">
+    <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
       <el-table-column prop="name" label="课程名称" width="220" align="center"></el-table-column>
       <el-table-column prop="intro" label="课程介绍" width="220" align="center"></el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="220" align="center"></el-table-column>
-      
-      <el-table-column fixed="right" label="操作" width="120">
+
+      <el-table-column fixed="right" label="操作" width="240">
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="gochartarea(scope.$index,list)"
             type="text"
             size="small"
           >进入讨论区</el-button>
+          <el-button
+            @click.native.prevent="release(scope.$index,list)"
+            type="text"
+            size="small"
+          >发布通知</el-button>
+          <el-button
+            @click.native.prevent="goCourseList(scope.$index,list)"
+            type="text"
+            size="small"
+          >查看课表</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,15 +65,12 @@ export default {
   methods: {
     // 获取列表数据
     async getMsgList() {
-        console.log(this.form)
       const res = await this.$http.post("curriculum/qcft", this.form);
-      console.log(res.data)
       // if (res.status == 200) {
       this.list = res.data.cList;
       // }
     },
     async onSubmit() {
-      console.log(this.form);
       const res = await this.$http.post(
         "curriculum/addCurriculum",
         this.form
@@ -85,6 +92,34 @@ export default {
     gochartarea(index,rows){
       const cuId = rows[index].id;
       this.$router.push( {name: 'teacherchartarea',params:{ cuId }})
+    },
+    
+    goCourseList(index,rows){
+      const cuId = rows[index].id;
+      this.$router.push( {name: 'teacourselist',params:{ cuId }})
+    }
+    ,
+     release(index,rows){
+      const cuId = rows[index].id;
+      this.$prompt('请输入通知内容', '发布通知', {
+          confirmButtonText: '发布',
+          cancelButtonText: '取消'
+        }).then(async ({ value }) => {
+          const formdata = {
+            courseId:cuId,
+            CurriculumLogNotice:value
+          }
+          const res = await this.$http.post("CurriculumLog/addCurriculumLog", formdata);
+          console.log(res.data)
+          if(res.data.code == 1){
+            this.$message({
+              type: 'success',
+              message: '发布成功！'
+            });
+          }
+        }).catch(() => {
+               
+        });
     }
   },
   created() {

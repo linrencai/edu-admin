@@ -4,11 +4,11 @@
     <h4>系统消息列表</h4>
     <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
-      <el-table-column prop="curriculum.name" label="课程名称" width="220" align="center"></el-table-column>
-      <el-table-column prop="curriculum.intro" label="课程介绍" width="220" align="center"></el-table-column>
-      <el-table-column prop="curriculum.createTime" label="创建时间" width="220" align="center"></el-table-column>
-      <el-table-column prop="teacher.name" label="课程教师" width="240" align="center"></el-table-column>
-
+      <el-table-column prop="state" label="课程状态" width="220" align="center"></el-table-column>
+      <el-table-column prop="notice" label="课程备注" width="220" align="center"></el-table-column>
+      <el-table-column prop="taskTime" label="考试时间" width="220" align="center"></el-table-column>
+      <el-table-column prop="time" label="课程时间" width="220" align="center"></el-table-column>
+    
       <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">
           <el-button
@@ -16,7 +16,13 @@
             type="text"
             size="small"
           >进入讨论区</el-button>
-          <el-button @click.native.prevent="register(scope.$index,list)" type="text" size="small">签到</el-button>
+          
+          <el-button
+            @click.native.prevent="goStudentList(scope.$index,list)"
+            type="text"
+            size="small"
+          >查看所有学生</el-button>
+          <!-- <el-button @click.native.prevent="register(scope.$index,list)" type="text" size="small">签到</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -31,22 +37,26 @@ export default {
       list: [],
       form: {
         select: "MC"
-      }
+      },
+      cuId:null
     };
   },
   methods: {
     // 获取列表数据
     async getMsgList() {
       console.log(this.form);
-      const res = await this.$http.post("curriculum/qcfs", this.form);
+      const formdata = {
+        courseId:this.cuId
+      }
+      const res = await this.$http.post("CurriculumLog/queryCurriculumLog", formdata);
       console.log(res.data);
       // if (res.status == 200) {
-      this.list = res.data.cList;
+      this.list = res.data.list;
       // }
     },
-    gochartarea(index, rows) {
-      const cuId = rows[index].curriculum.id;
-      this.$router.push({ name: "chartarea", params: { cuId } });
+    goStudentList(index,rows){
+      const cuId = rows[index].id;
+      this.$router.push( {name: 'studentlist',params:{ cuId }})
     },
     async register(index, rows) {
       const cuId = rows[index].curriculum.id;
@@ -63,8 +73,11 @@ export default {
       }
     }
   },
+  mounted(){
+this.getMsgList();
+  },
   created() {
-    this.getMsgList();
+     this.cuId = this.$route.params.cuId;
   }
 };
 </script>
