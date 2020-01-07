@@ -11,11 +11,11 @@
     
       <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">
-          <el-button
+          <!-- <el-button
             @click.native.prevent="gochartarea(scope.$index,list)"
             type="text"
             size="small"
-          >进入讨论区</el-button>
+          >进入讨论区</el-button> -->
           
           <el-button
             @click.native.prevent="goStudentList(scope.$index,list)"

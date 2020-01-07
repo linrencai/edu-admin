@@ -19,7 +19,7 @@
       <el-aside width="200px" class="aside">
         <!-- el-menu侧边栏导航 -->
         <!-- 开启路由 -->
-        <el-menu :router="true" :unique-opened="true" background-color="#545c64" active-text-color="#ffd04b" default-active="1">
+        <el-menu :router="true" :unique-opened="true" background-color="#fff" active-text-color="#ffd04b" default-active="1">
           <!-- 遍历出侧边栏菜单 -->
           <el-submenu :index=" ''+item1.order" v-for="(item1,i) in menuList" :key="i">
             <template slot="title">
@@ -192,17 +192,17 @@ export default {
               }
             ]
           },
-          {
-            authName: '课件文档下载',
-            order: 2,
-            icon: 'el-icon-download',
-            children: [
-              {
-                authName: '课件文档列表',
-                path: '/registerStudent'
-              }
-            ]
-          },
+          // {
+          //   authName: '课件文档下载',
+          //   order: 2,
+          //   icon: 'el-icon-download',
+          //   children: [
+          //     {
+          //       authName: '课件文档列表',
+          //       path: '/registerStudent'
+          //     }
+          //   ]
+          // },
           {
             authName: '联系管理员',
             order: 3,
@@ -210,7 +210,7 @@ export default {
             children: [
               {
                 authName: '联系管理员',
-                path: '/contactadmin'
+                path: '/teacontactadmin'
               }
             ]
           },

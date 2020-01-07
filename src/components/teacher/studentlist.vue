@@ -88,7 +88,7 @@ export default {
     },
     showDia(index, rows){
         this.dialogFormVisible = true
-      this.stuCourseLogId =  rows[index].clId;
+      this.stuCourseLogId =  rows[index].id;
     },
     async editRow() {
         this.dialogFormVisible = false

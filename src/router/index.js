@@ -32,6 +32,8 @@ import Adminchartarea from '@/components/admin/adminchartarea.vue'
 import Teacherchartarea from '@/components/teacher/teacherchartarea.vue'
 import Studentlist from '@/components/teacher/studentlist.vue'
 import Teacourselist from '@/components/teacher/teacourselist.vue'
+import Attendancelist from '@/components/teacher/attendancelist.vue'
+import Teacontactadmin from '@/components/teacher/teacontactadmin.vue'
 
 import {
   Message
@@ -192,6 +194,16 @@ const router = new Router({
           name:'teacourselist',
           path:'/teacourselist',
           component:Teacourselist
+        },
+        {
+          name:'attendancelist',
+          path:'/attendancelist',
+          component:Attendancelist
+        },
+        {
+          name:'teacontactadmin',
+          path:'/teacontactadmin',
+          component:Teacontactadmin
         }
       ]
     }

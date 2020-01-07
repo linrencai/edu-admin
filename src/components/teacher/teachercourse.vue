@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <my-bread level1="课程管理" level2="我的课程"></my-bread>
+    <h4>新增课程</h4>
     <el-form
       ref="form"
       :model="form"
@@ -31,19 +32,28 @@
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="gochartarea(scope.$index,list)"
-            type="text"
+            type="primary"
             size="small"
-          >进入讨论区</el-button>
+            class="mr_bot10"
+          >进讨论区</el-button>
           <el-button
             @click.native.prevent="release(scope.$index,list)"
-            type="text"
+            type="success"
             size="small"
+            class="mr_bot10"
           >发布通知</el-button>
           <el-button
             @click.native.prevent="goCourseList(scope.$index,list)"
-            type="text"
+            type="warning"
             size="small"
+            class="mr_bot10"
           >查看课表</el-button>
+          <el-button
+            @click.native.prevent="goAttendanceList(scope.$index,list)"
+            type="info"
+            size="small"
+            class="mr_bot10"
+          >考勤统计</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -97,6 +107,10 @@ export default {
     goCourseList(index,rows){
       const cuId = rows[index].id;
       this.$router.push( {name: 'teacourselist',params:{ cuId }})
+    },
+    goAttendanceList(index,rows){
+      const cuId = rows[index].id;
+      this.$router.push( {name: 'attendancelist',params:{ cuId }})
     }
     ,
      release(index,rows){
@@ -129,4 +143,7 @@ export default {
 </script>
 
 <style>
+.mr_bot10 {
+  margin-bottom:10px;
+}
 </style>
