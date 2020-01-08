@@ -20,7 +20,7 @@
           <el-button
             @click.native.prevent="goupload(scope.$index,list)"
             type="info"
-            size="success"
+            size="small"
             class="mr_bot10"
           >上传文件</el-button>
         </template>

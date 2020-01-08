@@ -27,6 +27,7 @@
       class="upload-demo"
       ref="upload"
       :action="uploadUrl"
+      :headers="headers"
       :data="homeworkUpload"
       :on-preview="handlePreview"
       :on-remove="handleRemove"
@@ -43,6 +44,7 @@
       class="upload-demo"
       ref="upload2"
       :action="uploadUrl"
+      :headers="headers"
       :data="courseUpload"
       :on-preview="handlePreview2"
       :on-remove="handleRemove2"
@@ -65,7 +67,7 @@ export default {
       fileList1: [],
       fileList2: [],
       //   uploadUrl: "fileStream/fileUpload",
-      uploadUrl: "fileStream/fileUpload",
+      uploadUrl: "/api/fileStream/fileUpload",
        fileList:[],
       homeworkUpload: {
         fileType: "作业",
@@ -74,6 +76,9 @@ export default {
       courseUpload: {
         fileType: "课件",
         currimlumLogId: null
+      },
+      headers:{
+          "processData":false
       }
     };
   },
