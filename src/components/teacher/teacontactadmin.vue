@@ -180,9 +180,9 @@ export default {
             "contectAdmin/teaReplySysMsg",
             formdata
           );
-       this.dialogVisible = false;
+      //  this.dialogVisible = false;
        if(res.data.retCode == 'CONADM0000'){
-          this.$message.warning("消息发送成功");
+          this.$message.success("消息发送成功");
           this.input = ''
           this.getMsgList();
        }else {
