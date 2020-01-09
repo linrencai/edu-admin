@@ -1,168 +1,70 @@
+
 <template>
   <el-card>
     <my-bread level1="课程管理" level2="文件上传"></my-bread>
-    <!-- <div class="mr_top">
-    <el-upload
-      :action="uploadUrl"
-      :on-change="handleChange"
-      :data="courseUpload"
-      :file-list="fileList1"
-    >
-    
-      <el-button size="small" type="primary">点击上传课件</el-button>
-      </el-upload>
-    </div>
     <div class="mr_top">
-    <el-upload
-      :action="uploadUrl"
-      :on-change="handleChange"
-      :data="homeworkUpload"
-      :file-list="fileList2"
-    >
-      <el-button size="small" type="primary">点击上传作业</el-button>
-      </el-upload>
-    </div>-->
-    <div class="mr_top">
-    <el-upload
-      class="upload-demo"
-      ref="upload"
-      :action="uploadUrl"
-      :headers="headers"
-      :data="homeworkUpload"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :file-list="fileList"
-      :auto-upload="false"
-    >
-      <el-button slot="trigger" size="small" type="primary">选取作业文件</el-button>
-      <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传作业到服务器</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-    </el-upload>
-    </div>
-    <div class="mr_top">
-    <el-upload
-      class="upload-demo"
-      ref="upload2"
-      :action="uploadUrl"
-      :headers="headers"
-      :data="courseUpload"
-      :on-preview="handlePreview2"
-      :on-remove="handleRemove2"
-      :file-list="fileList2"
-      :auto-upload="false"
-    >
-      <el-button slot="trigger" size="small" type="primary">选取课件文件</el-button>
-      <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload2">上传课件到服务器</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-    </el-upload>
+      <form id="form1" enctype="multipart/form-data">
+        <input type="file" name="myfile" />
+        <br />
+        <button type="button" @click="addFile()">上传</button>
+      </form>
+      <meter value="0" max="1000" style="width:500px" id="myMeter"></meter>
+      <h1>文件下载</h1>
+      <a href="file/fileDownload?filename=c7bccc4f-6a87-4c68-9307-9175045930f7.mp4">下载</a>
+      <div id="asd">内容获取了</div>
     </div>
   </el-card>
 </template>
 
 <script>
-// import catlist from '@/assets/city_data2017_element.js'
 export default {
-  data() {
+  data () {
     return {
-      fileList1: [],
-      fileList2: [],
-      //   uploadUrl: "fileStream/fileUpload",
-      uploadUrl: "/api/fileStream/fileUpload",
-       fileList:[],
-      homeworkUpload: {
-        fileType: "作业",
-        currimlumLogId: null
-      },
-      courseUpload: {
-        fileType: "课件",
-        currimlumLogId: null
-      },
-      headers:{
-          "processData":false,
-          "Content-Type":"text/plain;charset=UTF-8"
-      }
-    };
+      currimlumLogId: null
+    }
   },
   methods: {
-    // 获取列表数据
-    async getMsgList() {
-      console.log(this.form);
-      const formdata = {
-        courseId: this.cuId
-      };
-      const res = await this.$http.post(
-        "CurriculumLog/queryCurriculumLog",
-        formdata
-      );
-      console.log(res.data);
-      // if (res.status == 200) {
-      this.list = res.data.list;
-      // }
-    },
-    goStudentList(index, rows) {
-      const cuId = rows[index].id;
-      this.$router.push({ name: "studentlist", params: { cuId } });
-    },
-    async register(index, rows) {
-      const cuId = rows[index].curriculum.id;
-      const formdata = {
-        courseLogId: cuId,
-        stuCourceState: "正常"
-      };
-      const res = await this.$http.post(
-        "CurriculumLog/addStudentCurriculumLog",
-        formdata
-      );
-      if (res.data.code == 1) {
-        this.$message.success("签到成功！");
-      }
-    },
-    async uploadCourseFile() {
-      //   const cuId = rows[index].curriculum.id;
-      const formdata = {
-        fileType: "课件",
-        currimlumLogId: cuId
-      };
-      const res = await this.$http.post("fileStream/fileUpload", formdata);
-      console.log(res);
-    },
-    async uploadHomeworkFile(index, rows) {
-      const cuId = rows[index].curriculum.id;
-      const formdata = {
-        fileType: "作业",
-        currimlumLogId: cuId
-      };
-      const res = await this.$http.post("fileStream/fileUpload", formdata);
-      console.log(res);
-    },
-    handleChange(file, fileList) {
-      console.log(fileList);
-      console.log(file);
-    },
-     submitUpload() {
-        this.$refs.upload.submit();
-      },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
-     submitUpload2() {
-        this.$refs.upload2.submit();
-      },
-      handleRemove2(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview2(file) {
-        console.log(file);
-      }
+    addFile: function () {
+      console.log($('#asd').text())
+      // eslint-disable-next-line no-undef
+      var form = $('#form1')[0]
+      var formData = new FormData(form)
+      formData.append('currimlumLogId', this.currimlumLogId)
+      formData.append('fileType', '作业')
+      console.log(this.currimlumLogId)
+      console.log(form)
+      $.ajax({
+        url: 'api/fileStream/fileUpload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+          console.log(res.data)
+        },
+        xhr: function () {
+          // 进度条
+          var myXhr = $.ajaxSettings.xhr() // ajax的对象xmlHttpRequest
+          if (myXhr.upload) {
+            myXhr.upload.addEventListener('progress', function (e) {
+              console.log(e.loaded, e.total)
+              $('#myMeter').attr('max', e.total)
+              $('#myMeter').val(e.loaded)
+            })
+          }
+          return myXhr
+        },
+        error: function (err) {
+          console.log(err)
+        }
+      })
+    }
   },
-  created() {
-    this.homeworkUpload.currimlumLogId = this.$route.params.cuId;
-    this.courseUpload.currimlumLogId = this.$route.params.cuId;
+  created () {
+    this.currimlumLogId = this.$route.params.cuId
+    console.log(this.$route.params.cuId)
   }
-};
+}
 </script>
 
 <style>
