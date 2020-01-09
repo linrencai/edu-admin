@@ -78,7 +78,8 @@ export default {
         currimlumLogId: null
       },
       headers:{
-          "processData":false
+          "processData":false,
+          "Content-Type":"text/plain;charset=UTF-8"
       }
     };
   },
