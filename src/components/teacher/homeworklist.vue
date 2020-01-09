@@ -57,9 +57,13 @@ export default {
   methods: {
     // 获取列表数据
     async getMsgList () {
+        const formdata = {
+            courseLogId:this.form.courseLogId,
+            fileState:'学生'
+        }
       const res = await this.$http.post(
-        'CurriculumLog/queryStudentOnCourse',
-        this.form
+        'fileStream/selectFileIdByclId',
+        formdata
       )
       console.log(res)
       if (res.status == 200) {

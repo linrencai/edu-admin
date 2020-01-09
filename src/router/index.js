@@ -35,6 +35,8 @@ import Teacourselist from '@/components/teacher/teacourselist.vue'
 import Attendancelist from '@/components/teacher/attendancelist.vue'
 import Teacontactadmin from '@/components/teacher/teacontactadmin.vue'
 import Uploadfile from '@/components/teacher/uploadfile.vue'
+import Filelist from '@/components/teacher/filelist.vue'
+import Homeworklist from '@/components/teacher/homeworklist.vue'
 
 import {
   Message
@@ -210,6 +212,16 @@ const router = new Router({
           name:'uploadfile',
           path:'/uploadfile',
           component:Uploadfile
+        },
+        {
+          name:'filelist',
+          path:'/filelist',
+          component:Filelist
+        }
+        {,
+          name:'homeworklist',
+          path:'/homeworklist',
+          component:Homeworklist
         }
       ]
     }

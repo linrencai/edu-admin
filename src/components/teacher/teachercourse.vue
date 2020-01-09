@@ -22,13 +22,13 @@
       </el-form-item>
     </el-form>
     <h4>系统消息列表</h4>
-    <el-table :data="list" style="width: 100%;" max-height="500">
+    <el-table :data="list" style="width: 100%;" max-height="500" border>
       <el-table-column type="index" width="50" label="序号"></el-table-column>
       <el-table-column prop="name" label="课程名称" width="220" align="center"></el-table-column>
       <el-table-column prop="intro" label="课程介绍" width="220" align="center"></el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="220" align="center"></el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="240">
+      <el-table-column label="操作" width="440">
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="gochartarea(scope.$index,list)"
