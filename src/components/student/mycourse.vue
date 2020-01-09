@@ -9,14 +9,21 @@
       <el-table-column prop="curriculum.createTime" label="创建时间" width="220" align="center"></el-table-column>
       <el-table-column prop="teacher.name" label="课程教师" width="240" align="center"></el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="120">
+      <el-table-column fixed="right" label="操作" width="420">
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="gochartarea(scope.$index,list)"
-            type="text"
+            type="success"
             size="small"
-          >进入讨论区</el-button>
-          <el-button @click.native.prevent="register(scope.$index,list)" type="text" size="small">签到</el-button>
+            class="mr_bot"
+          >讨论区</el-button>
+          <el-button class="mr_bot" @click.native.prevent="register(scope.$index,list)" type="primary" size="small">签到</el-button>
+        <el-button
+            @click.native.prevent="goCourseList(scope.$index,list)"
+            type="warning"
+            size="small"
+            class="mr_bot"
+          >查看课程</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -48,6 +55,10 @@ export default {
       const cuId = rows[index].curriculum.id;
       this.$router.push({ name: "chartarea", params: { cuId } });
     },
+    goCourseList(index,rows){
+      const cuId = rows[index].id;
+      this.$router.push( {name: 'stucourselist',params:{ cuId }})
+    },
     async register(index, rows) {
       const cuId = rows[index].curriculum.id;
       const formdata = {
@@ -58,8 +69,8 @@ export default {
         "CurriculumLog/addStudentCurriculumLog",
         formdata
       );
-      if(res.data.code == 1){
-        this.$message.success('签到成功！')
+      if (res.data.code == 1) {
+        this.$message.success("签到成功！");
       }
     }
   },
@@ -70,4 +81,7 @@ export default {
 </script>
 
 <style>
+.mr_bot {
+  margin-bottom: 10px;
+}
 </style>

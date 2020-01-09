@@ -37,6 +37,8 @@ import Teacontactadmin from '@/components/teacher/teacontactadmin.vue'
 import Uploadfile from '@/components/teacher/uploadfile.vue'
 import Filelist from '@/components/teacher/filelist.vue'
 import Homeworklist from '@/components/teacher/homeworklist.vue'
+import Stucourselist from '@/components/student/stucourselist.vue'
+import Stuuploadhomework from '@/components/student/stuuploadhomework.vue'
 
 import {
   Message
@@ -217,11 +219,21 @@ const router = new Router({
           name:'filelist',
           path:'/filelist',
           component:Filelist
-        }
-        {,
+        },
+        {
           name:'homeworklist',
           path:'/homeworklist',
           component:Homeworklist
+        },
+        {
+          name:'stucourselist',
+          path:'/stucourselist',
+          component:Stucourselist
+        },
+        {
+          name:'stuuploadhomework',
+          path:'/stuuploadhomework',
+          component:Stuuploadhomework
         }
       ]
     }

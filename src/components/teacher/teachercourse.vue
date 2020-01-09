@@ -28,7 +28,7 @@
       <el-table-column prop="intro" label="课程介绍" width="220" align="center"></el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="220" align="center"></el-table-column>
 
-      <el-table-column label="操作" width="440">
+      <el-table-column label="操作" width="440" fixed="right">
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="gochartarea(scope.$index,list)"

@@ -9,32 +9,38 @@
       <el-table-column prop="taskTime" label="考试时间" width="200" align="center"></el-table-column>
       <el-table-column prop="time" label="课程时间" width="200" align="center"></el-table-column>
 
-      <el-table-column label="操作" width="540" align="center" fixed="right">
+      <el-table-column fixed="right" label="操作" width="340" align="center">
         <template slot-scope="scope">
-          <el-button
+          <!-- <el-button
             @click.native.prevent="goStudentList(scope.$index,list)"
             type="primary"
             size="small"
             class="mr_bot10"
-          >学生列表</el-button>
+          >学生列表</el-button> -->
           <el-button
             @click.native.prevent="goupload(scope.$index,list)"
             type="info"
             size="small"
             class="mr_bot10"
-          >上传文件</el-button>
-          <el-button
+          >提交作业</el-button>
+          <!-- <el-button
             @click.native.prevent="showDia(scope.$index,list)"
             type="success"
             size="small"
             class="mr_bot10"
-          >设置作业最晚提交时间</el-button>
+          >设置作业最晚提交时间</el-button> -->
           <el-button
             @click.native.prevent="checkFile(scope.$index,list)"
             type="warning"
             size="small"
             class="mr_bot10"
-          >查看课件/作业</el-button>
+          >下载课件/作业</el-button>
+          <!-- <el-button
+            @click.native.prevent="checkHomework(scope.$index,list)"
+            type="warning"
+            size="small"
+            class="mr_bot10"
+          >查看学生作业</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -132,7 +138,7 @@ export default {
     goupload (index, rows) {
       const cuId = rows[index].id
       console.log(cuId)
-      this.$router.push({name: 'uploadfile', params: { cuId }})
+      this.$router.push({name: 'stuuploadhomework', params: { cuId }})
     },
     checkFile (index, rows) {
       const cuId = rows[index].id

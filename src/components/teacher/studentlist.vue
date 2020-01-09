@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <my-bread level1="课程管理" level2="课程学生列表"></my-bread>
+    <my-bread level1="课程管理" level2="学生作业"></my-bread>
     <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
       <el-table-column prop="student.stuStudyNumber" label="学号" width="220" align="center"></el-table-column>
@@ -8,13 +8,19 @@
       <el-table-column prop="student.stuEmail" label="邮箱" width="220" align="center"></el-table-column>
       <el-table-column prop="state" label="状态" width="240" align="center"></el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="180">
+      <el-table-column fixed="right" label="操作" width="280">
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="showDia(scope.$index,list)"
-            type="warning"
+            type="primary"
             size="small"
           >选择签到状态</el-button>
+          <el-button
+            @click.native.prevent="checkHomework(scope.$index,list)"
+            type="success"
+            size="small"
+            class="mr_bot10"
+          >查看学生作业</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -107,6 +113,10 @@ export default {
         this.form2.status = ''
         this.getMsgList()
       }
+    },
+    checkHomework (index, rows) {
+      const cuId = this.form.courseLogId
+       this.$router.push({ name: 'homeworklist', params: { cuId } })
     }
   },
   mounted () {

@@ -1,126 +1,102 @@
 <template>
   <el-card>
-    <my-bread level1="课程管理" level2="课程学生列表"></my-bread>
+    <my-bread level1="课程管理" level2="学生作业"></my-bread>
+    <h4>课件/作业列表</h4>
     <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
-      <el-table-column prop="student.stuStudyNumber" label="学号" width="220" align="center"></el-table-column>
-      <el-table-column prop="student.stuPhone" label="手机号" width="220" align="center"></el-table-column>
-      <el-table-column prop="student.stuEmail" label="邮箱" width="220" align="center"></el-table-column>
-      <el-table-column prop="state" label="状态" width="240" align="center"></el-table-column>
-
-      <el-table-column fixed="right" label="操作" width="180">
+      <el-table-column prop="fname" label="文件名称" width="220" align="center"></el-table-column>
+      <el-table-column prop="ftype" label="文件类型" width="100" align="center"></el-table-column>
+      <el-table-column prop="ftime" label="上传时间" width="200" align="center"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="240" align="center">
         <template slot-scope="scope">
           <el-button
-            @click.native.prevent="showDia(scope.$index,list)"
-            type="warning"
+            @click.native.prevent="scoring(scope.$index,list)"
+            type="primary"
             size="small"
-          >选择签到状态</el-button>
+            class="mr_bot10"
+          >评分</el-button>
+          <div class="mr_bot">
+            <a class="downloadbtn" :href='"fileStream/fileDownload"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a>
+          </div>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="考勤状态" :visible.sync="dialogFormVisible">
-  <el-form :model="form2">
-    <el-form-item label="考勤状态" :label-width="formLabelWidth">
-      <el-select v-model="form2.status" placeholder="请选择考勤状态">
-        <el-option label="出席" value="出席"></el-option>
-        <el-option label="迟到" value="迟到"></el-option>
-        <el-option label="请假" value="请假"></el-option>
-        <el-option label="旷课" value="旷课"></el-option>
-      </el-select>
-    </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">取 消</el-button>
-    <el-button type="primary" @click="editRow">确 定</el-button>
-  </div>
-</el-dialog>
   </el-card>
 </template>
 
 <script>
-// import catlist from '@/assets/city_data2017_element.js'
 export default {
-  data () {
+  data() {
     return {
-      dialogFormVisible: false,
-      form2: {
-        status: ''
-      },
-      formLabelWidth: '120px',
-      list: [],
-      form: {
-        courseLogId: null
-      },
-      stuCourseLogId: null
-    }
+      cuId: null,
+      list: []
+    };
   },
   methods: {
     // 获取列表数据
-    async getMsgList () {
-        const formdata = {
-            courseLogId:this.form.courseLogId,
-            fileState:'学生'
-        }
-      const res = await this.$http.post(
-        'fileStream/selectFileIdByclId',
-        formdata
-      )
-      console.log(res)
-      if (res.status == 200) {
-        this.list = res.data.list
-      }
-    },
-    async onSubmit () {
-      console.log(this.form)
-      const res = await this.$http.post(
-        'studentReg/auditStudentReg',
-        this.form
-      )
-      console.log(res)
-      if (res.status == 200) {
-        if (res.data.retCode == 'SYSMSG0000') {
-          this.$message.success(res.data.retMsg)
-          this.form = {
-            title: '',
-            content: ''
-          }
-          this.getMsgList()
-        } else {
-          this.$message.warning(res.data.retMsg)
-        }
-      }
-    },
-    showDia (index, rows) {
-      this.dialogFormVisible = true
-      this.stuCourseLogId = rows[index].id
-    },
-    async editRow () {
-      this.dialogFormVisible = false
+    async getMsgList() {
       const formdata = {
-        stuCourseLogId: this.stuCourseLogId,
-        stuAbsentState: this.form2.status
-      }
-      console.log(formdata)
+        courseLogId: this.cuId,
+        fileState: "学生"
+      };
       const res = await this.$http.post(
-        'CurriculumLog/studentAbsent',
+        "fileStream/selectFileIdByclId",
         formdata
-      )
-      console.log(res.data)
-      if (res.data.code == 1) {
-        this.$message.success('修改签到成功！')
-        this.form2.status = ''
-        this.getMsgList()
-      }
+      );
+      console.log(res.data);
+      // if (res.status == 200) {
+      this.list = res.data.list;
+      // }
+    },
+    async scoring(index, rows) {
+      const cuId = rows[index].id;
+      this.$prompt("请输入评分", "作业评分", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消"
+      })
+        .then(async ({ value }) => {
+          const formdata = {
+            stuCourseLogId: this.cuId,
+            stuScore: value
+          };
+          const res = await this.$http.post(
+            "CurriculumLog/studentScore",
+            formdata
+          );
+          console.log(res.data);
+          if (res.data.code == 1) {
+            this.$message({
+              type: "success",
+              message: "评分已提交！"
+            });
+          }
+        })
+        .catch(() => {});
     }
   },
-  mounted () {
-    this.getMsgList()
+  mounted() {
+    this.getMsgList();
   },
-  created () {
-    this.form.courseLogId = this.$route.params.cuId
+  created() {
+    this.cuId = this.$route.params.cuId;
   }
-}
+};
 </script>
 
 <style>
+.mr_bot {
+  margin-bottom: 10px;
+}
+.downloadbtn {
+  display: inline-block;
+  padding: 6px 15px;
+  background-color: rgb(95, 92, 247);
+  border-radius: 3px;
+  text-decoration: none;
+  color: #fff;
+  transition: .1s;
+}
+.downloadbtn:hover {
+  opacity: .7;
+}
 </style>
