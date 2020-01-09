@@ -3,7 +3,7 @@
   <el-card>
     <my-bread level1="课程管理" level2="文件上传"></my-bread>
     <div class="mr_top">
-      <form id="form1" enctype="multipart/form-data">
+      <form id="form1" enctype="application/json;charset=UTF-8">
         <input type="file" name="myfile" />
         <br />
         <button type="button" @click="addFile()">上传</button>
@@ -39,6 +39,7 @@ export default {
         data: formData,
         processData: false,
         contentType: false,
+        // contentType: 'application/json;charset=UTF-8',
         success: function (res) {
           console.log(res.data)
         },
