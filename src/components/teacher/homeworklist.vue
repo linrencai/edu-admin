@@ -16,7 +16,7 @@
             class="mr_bot10"
           >评分</el-button>
           <div class="mr_bot">
-            <a class="downloadbtn" :href='"fileStream/fileDownload"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a>
+            <a class="downloadbtn" :href='"api/fileStream/fileDownload?"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a>
           </div>
         </template>
       </el-table-column>

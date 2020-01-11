@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <my-bread level1="课程管理" level2="我的课程"></my-bread>
+    <my-bread level1="课程管理" level2="文件列表"></my-bread>
     <h4>课件/作业列表</h4>
     <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
@@ -11,7 +11,7 @@
 
       <el-table-column label="操作" fixed="right" width="240" align="center">
         <template slot-scope="scope">
-          <a class="downloadbtn" :href='"fileStream/fileDownload"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a>
+          <a class="downloadbtn" :href='"api/fileStream/fileDownload?"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a>
         </template>
       </el-table-column>
     </el-table>
@@ -33,6 +33,7 @@ export default {
         courseLogId: this.cuId,
         fileState: '通过'
       }
+      console.log(formdata)
       const res = await this.$http.post(
         'fileStream/selectFileIdByclId',
         formdata

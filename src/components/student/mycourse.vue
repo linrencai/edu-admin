@@ -56,7 +56,8 @@ export default {
       this.$router.push({ name: "chartarea", params: { cuId } });
     },
     goCourseList(index,rows){
-      const cuId = rows[index].id;
+      console.log(rows[index].curriculum.id)
+      const cuId = rows[index].curriculum.id;
       this.$router.push( {name: 'stucourselist',params:{ cuId }})
     },
     async register(index, rows) {
