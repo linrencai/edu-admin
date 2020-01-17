@@ -6,6 +6,7 @@
       <el-table-column prop="student.stuStudyNumber" label="学号" width="220" align="center"></el-table-column>
       <el-table-column prop="student.stuPhone" label="手机号" width="220" align="center"></el-table-column>
       <el-table-column prop="student.stuEmail" label="邮箱" width="220" align="center"></el-table-column>
+      <el-table-column prop="hwScore" label="作业评分" width="220" align="center"></el-table-column>
       <el-table-column prop="state" label="状态" width="240" align="center"></el-table-column>
 
       <el-table-column fixed="right" label="操作" width="280">
