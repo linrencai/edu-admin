@@ -47,6 +47,11 @@ export default {
         contentType: false,
         success: function (res) {
           console.log(res)
+          if(res.code == 1){
+            this.$message.success('上传成功！')
+          }else{
+            this.$message.warning('上传失败！')
+          }
         },
         xhr: function () {
           // 进度条
@@ -70,13 +75,17 @@ export default {
       formData.append('currimlumLogId', this.currimlumLogId)
       formData.append('fileType', '课件')
       $.ajax({
-        url: 'api/fileStream/fileUpload',
+        url: '/api/fileStream/fileUpload',
         type: 'POST',
         data: formData,
         processData: false,
         contentType: false,
         success: function (res) {
-          console.log(res.data)
+           if(res.code == 1){
+            this.$message.success('上传成功！')
+          }else{
+            this.$message.warning('上传失败！')
+          }
         },
         xhr: function () {
           // 进度条

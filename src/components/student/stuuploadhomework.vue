@@ -35,7 +35,11 @@ export default {
         processData: false,
         contentType: false,
         success: function (res) {
-          console.log(res)
+           if(res.code == 1){
+            this.$message.success('上传成功！')
+          }else{
+            this.$message.warning('上传失败！')
+          }
         },
         xhr: function () {
           // 进度条

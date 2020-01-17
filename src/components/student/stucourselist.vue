@@ -7,40 +7,23 @@
       <el-table-column prop="state" label="课程状态" width="80" align="center"></el-table-column>
       <el-table-column prop="notice" label="课程备注" width="240" align="center"></el-table-column>
       <el-table-column prop="taskTime" label="作业最晚提交时间" width="240" align="center"></el-table-column>
+      <el-table-column prop="stuCurriculumLog.hwScore" label="作业评分" width="120" align="center"></el-table-column>
       <el-table-column prop="time" label="课程时间" width="200" align="center"></el-table-column>
 
       <el-table-column fixed="right" label="操作" width="340" align="center">
         <template slot-scope="scope">
-          <!-- <el-button
-            @click.native.prevent="goStudentList(scope.$index,list)"
-            type="primary"
-            size="small"
-            class="mr_bot10"
-          >学生列表</el-button> -->
           <el-button
             @click.native.prevent="goupload(scope.$index,list)"
             type="info"
             size="small"
             class="mr_bot10"
           >提交作业</el-button>
-          <!-- <el-button
-            @click.native.prevent="showDia(scope.$index,list)"
-            type="success"
-            size="small"
-            class="mr_bot10"
-          >设置作业最晚提交时间</el-button> -->
           <el-button
             @click.native.prevent="checkFile(scope.$index,list)"
             type="warning"
             size="small"
             class="mr_bot10"
           >下载课件/作业</el-button>
-          <!-- <el-button
-            @click.native.prevent="checkHomework(scope.$index,list)"
-            type="warning"
-            size="small"
-            class="mr_bot10"
-          >查看学生作业</el-button> -->
         </template>
       </el-table-column>
     </el-table>
