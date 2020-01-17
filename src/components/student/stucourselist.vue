@@ -6,7 +6,7 @@
       <el-table-column type="index" width="50" label="序号"></el-table-column>
       <el-table-column prop="state" label="课程状态" width="80" align="center"></el-table-column>
       <el-table-column prop="notice" label="课程备注" width="240" align="center"></el-table-column>
-      <el-table-column prop="taskTime" label="考试时间" width="200" align="center"></el-table-column>
+      <el-table-column prop="taskTime" label="作业最晚提交时间" width="240" align="center"></el-table-column>
       <el-table-column prop="time" label="课程时间" width="200" align="center"></el-table-column>
 
       <el-table-column fixed="right" label="操作" width="340" align="center">
