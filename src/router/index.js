@@ -10,6 +10,8 @@ import Studentresetpsd from '@/components/login/studentresetpsd.vue'
 import Studentquestion from '@/components/admin/studentquestion.vue'
 import Teacherquestion from '@/components/admin/teacherquestion.vue'
 import Registerteacher from '@/components/admin/registerteacher.vue'
+import registerStudent from '@/components/admin/registerStudent.vue'
+import messageManager from '@/components/admin/messageManager.vue'
 import Courselist from '@/components/student/courselist.vue'
 import Mycourse from '@/components/student/mycourse.vue'
 import Teachercourse from '@/components/teacher/teachercourse.vue'
@@ -29,6 +31,7 @@ import Filelist from '@/components/teacher/filelist.vue'
 import Homeworklist from '@/components/teacher/homeworklist.vue'
 import Stucourselist from '@/components/student/stucourselist.vue'
 import Stuuploadhomework from '@/components/student/stuuploadhomework.vue'
+
 
 import {
   Message
@@ -85,6 +88,16 @@ const router = new Router({
           name: 'registerteacher',
           path: '/registerteacher',
           component: Registerteacher
+        },
+        {
+          name: 'registerStudent',
+          path: '/registerStudent',
+          component: registerStudent
+        },
+        {
+          name: 'messageManager',
+          path: '/messageManager',
+          component: messageManager
         },
         {
           name: 'courselist',
