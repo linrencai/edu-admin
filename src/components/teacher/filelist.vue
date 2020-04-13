@@ -11,7 +11,7 @@
 
       <el-table-column label="操作" fixed="right" width="240" align="center">
         <template slot-scope="scope">
-          <a class="downloadbtn" :href='"api/fileStream/fileDownload?"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a>
+          <a class="downloadbtn"  :href='"api/fileStream/fileDownload?fileuuid="+scope.row.fuuidName+"&filename="+scope.row.fname' target="_blank">下载</a>
         </template>
       </el-table-column>
     </el-table>

@@ -29,20 +29,23 @@ export default {
       formData.append('currimlumLogId', this.currimlumLogId)
       formData.append('stuCommitState', '提交')
       $.ajax({
-        url: 'api/fileStream/fileStuCommit',
+        url: '/api/fileStream/fileStuCommit',
         type: 'POST',
         data: formData,
         processData: false,
         contentType: false,
         success: function (res) {
-          console.log(res.data)
+           if(res.code == 1){
+            this.$message.success('上传成功！')
+          }else{
+            this.$message.warning('上传失败！')
+          }
         },
         xhr: function () {
           // 进度条
           var myXhr = $.ajaxSettings.xhr() // ajax的对象xmlHttpRequest
           if (myXhr.upload) {
             myXhr.upload.addEventListener('progress', function (e) {
-              console.log(e.loaded, e.total)
               $('#myMeter').attr('max', e.total)
               $('#myMeter').val(e.loaded)
             })

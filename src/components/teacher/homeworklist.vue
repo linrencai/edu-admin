@@ -1,11 +1,11 @@
 <template>
   <el-card>
     <my-bread level1="课程管理" level2="学生作业"></my-bread>
-    <h4>课件/作业列表</h4>
+    <h4>学生作业列表</h4>
     <el-table :data="list" style="width: 100%;" max-height="500">
       <el-table-column type="index" width="50" label="序号"></el-table-column>
       <el-table-column prop="fname" label="文件名称" width="220" align="center"></el-table-column>
-      <el-table-column prop="ftype" label="文件类型" width="100" align="center"></el-table-column>
+      <!-- <el-table-column prop="ftype" label="文件类型" width="100" align="center"></el-table-column> -->
       <el-table-column prop="ftime" label="上传时间" width="200" align="center"></el-table-column>
       <el-table-column label="操作" fixed="right" width="240" align="center">
         <template slot-scope="scope">
@@ -16,7 +16,8 @@
             class="mr_bot10"
           >评分</el-button>
           <div class="mr_bot">
-            <a class="downloadbtn" :href='"api/fileStream/fileDownload?"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a>
+            <!-- <a class="downloadbtn" :href='"api/fileStream/fileDownload?"+scope.row.fuuidName+"."+scope.row.fextend' target="_blank">下载</a> -->
+            <a class="downloadbtn" :href='"api/fileStream/fileDownload?fileuuid="+scope.row.fuuidName+"&filename="+scope.row.fname' target="_blank">下载</a>
           </div>
         </template>
       </el-table-column>

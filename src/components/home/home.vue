@@ -143,17 +143,17 @@ export default {
               }
             ]
           },
-          {
-            authName: '课件文档下载',
-            order: 2,
-            icon: 'el-icon-download',
-            children: [
-              {
-                authName: '课件文档列表',
-                path: '/registerStudent'
-              }
-            ]
-          },
+          // {
+          //   authName: '课件文档下载',
+          //   order: 2,
+          //   icon: 'el-icon-download',
+          //   children: [
+          //     {
+          //       authName: '课件文档列表',
+          //       path: '/registerStudent'
+          //     }
+          //   ]
+          // },
           {
             authName: '联系管理员',
             order: 3,
